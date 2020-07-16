@@ -83,7 +83,7 @@ If installing R and RStudio is tricky or impossible with your setup (e.g., if yo
 
 ## Slides
 
-[Slides](https://3mmarand.github.io/N8-CIR-intro-repro/)
+[Slides](https://3mmarand.github.io/N8-CIR-intro-repro/index.html)
 
 
 
