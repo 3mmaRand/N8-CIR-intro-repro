@@ -291,42 +291,51 @@ class: inverse
 ---
 # Typing in data, calcs, plots
 
-## The goal
-We will work some data on the number of males in 64 bird nests with a clutch size of 5. You are going to type data in R, summarise and plot it
+Number of deaths involving COVID-19 in different age groups in March and April, UK.&lt;sup&gt;1&lt;/sup&gt;
+
+.footnote[ 
+.font60[
+1. Source: Office for National Statistics licensed under the Open Government Licence.]
+]
+
 --
 .pull-left[
 
-&lt;table class="table" style="font-size: 16px; margin-left: auto; margin-right: auto;"&gt;
+&lt;table class="table" style="font-size: 14px; margin-left: auto; margin-right: auto;"&gt;
  &lt;thead&gt;
   &lt;tr&gt;
-   &lt;th style="text-align:right;"&gt; No. males &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; No. nests &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Age group &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; No. deaths &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
 &lt;tbody&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 20-24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 139 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 25-29 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 210 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 30-34 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 319 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 35-39 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 555 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 40-44 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 852 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 45-49 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1640 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 50-54 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2842 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -346,7 +355,7 @@ In RStudio do File | New project | New directory
 
 Be purposeful about where you create it and name it.
 
-I suggest `birds`
+I suggest `covid_deaths`
 
 --
 
@@ -359,185 +368,69 @@ Make a new script ![new script](pics/newscript.png) and save it as analysis.R to
 
 ## Data structures
 
-Make a vector `n` that holds the numbers 0 to 5. 
+Make a vector `age` that holds the numbers 0 to 5. 
 
 ```r
-# the number of males in a clutch of five
-n &lt;- c(0, 1, 2, 3, 4, 5)
+# the age groups
+age &lt;- c("20-24", "25-29", "30-34", "35-39", "40-44", "45-49", "50-54")
 ```
 
-* Write your command in the analysis.R  
+* Write your command in analysis.R  
 
 --
 
-* Notice I have used a comment  
+* Use comments!  
 --
 
-* Cursor on the line you want to execute  
-
---
-
-* Execute with ![Run](pics/runbutton.png) or Ctrl+Enter 
+* Cursor on the line you want to execute, then ![Run](pics/runbutton.png) or Ctrl+Enter 
 
 ---
 # Typing in data, calcs, plots
 
 ## Data structures
 
-Let's take a look at it using `str()` (structure) and `class()`
+Let's take a look at it using `str()` (structure)
 --
 
 ```r
-class(n)
+str(age)
 ```
 
 ```
-## [1] "numeric"
-```
---
-
-```r
-str(n)
-```
-
-```
-##  num [1:6] 0 1 2 3 4 5
+##  chr [1:7] "20-24" "25-29" "30-34" "35-39" "40-44" "45-49" "50-54"
 ```
 
 It's a numeric vector.
  
 
-
 ---
 # Typing in data, calcs, plots
 
 ## Data structures
 
-Create a vector, `freq`, containing the numbers of nests with 0 to 5 males. 
+Create a vector, `freq`, containing the number of deaths in each age group. 
 
 
 ```r
-# the number of nests with 0 to 5 males
-freq &lt;- c(4, 13, 14, 15, 13, 5)
+# the number of deaths in each age group
+freq &lt;- c(139, 210, 319, 555, 852, 1640, 2842)
 ```
 ---
 # Typing in data, calcs, plots
 
-## Total number of nests
+## Total number of deaths
 
-We can use `sum(freq)` to check the total number of nests is 64.
+We can use `sum(freq)` to check the total number of deaths.
 
 
 ```r
-# the total number of nests
+# the total number of deaths
 sum(freq)
 ```
 
 ```
-## [1] 64
+## [1] 6557
 ```
-
----
-# Typing in data, calcs, plots
-
-## Finding the mean
-We have frequencies so to find the mean number of males per nest we need the total number of males:
-.pull-left[
-&lt;table class="table" style="font-size: 16px; margin-left: auto; margin-right: auto;"&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt; No. males &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; No. nests &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; No. males *No. nests &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 13 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 13 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 14 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 28 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 15 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 45 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 13 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 52 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 25 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;font-weight: bold;background-color: #C0C2C9 !important;"&gt; Total &lt;/td&gt;
-   &lt;td style="text-align:left;font-weight: bold;background-color: #C0C2C9 !important;"&gt; 64 &lt;/td&gt;
-   &lt;td style="text-align:left;font-weight: bold;background-color: #C0C2C9 !important;"&gt; 163 &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-]
-
-.pull-right[
-
-`$$\frac{163}{64} = 2.55$$`
-]
-
----
-# Typing in data, calcs, plots
-
-## Finding the mean
-Total number of nests:
-
-```r
-total_nests &lt;- sum(freq)
-```
- 
---
-Total number of males
-
-```r
-total_males &lt;- sum(n * freq)
-```
-
----
-# Typing in data, calcs, plots
-
-## Finding the mean
-Mean number of males per nest:
-
-```r
-total_males/total_nests
-```
-
-```
-## [1] 2.546875
-```
-
-
----
-# Why it works
-
-R works 'elementwise' unlike most programming lanaguges.  
-` n * freq`
-gives
-
-`$$\begin{bmatrix}0\\1\\2\\3\\4\\5\end{bmatrix}\times\begin{bmatrix}4\\13\\14\\15\\13\\5\end{bmatrix}=\begin{bmatrix}0\\13\\28\\45\\52\\25\end{bmatrix}$$`
-
-It was designed to make it easy to work with data.
 
 ---
 
@@ -593,13 +486,11 @@ We will also later use `dplyr` and `tidyr` functions also from `tidyverse`.
 
 `ggplot()` takes a dataframe for an argument
 
-We can make a dataframe of the two vectors, `n` and `freq`: 
+We can make a dataframe of the two vectors, `age` and `freq`: 
 
 ```r
-nest_data &lt;- data.frame(n = factor(n), freq)
+covid &lt;- data.frame(age, freq)
 ```
-
-`n` was made into a factor (a categorical variable).
 
 ---
 # Plotting using ggplot2
@@ -608,20 +499,20 @@ nest_data &lt;- data.frame(n = factor(n), freq)
 Check:
 
 ```r
-str(nest_data)
+str(covid)
 ```
 
 ```
-## 'data.frame':	6 obs. of  2 variables:
-##  $ n   : Factor w/ 6 levels "0","1","2","3",..: 1 2 3 4 5 6
-##  $ freq: num  4 13 14 15 13 5
+## 'data.frame':	7 obs. of  2 variables:
+##  $ age : chr  "20-24" "25-29" "30-34" "35-39" ...
+##  $ freq: num  139 210 319 555 852 ...
 ```
 
 --
 
-`nest_data` is the name we have given the dataframe
+`covid` is the name we have given the dataframe
 
-Click on `nest_data` in the Environment. 
+Click on `covid` in the Environment. 
 
 ---
 # Plotting using ggplot2
@@ -632,11 +523,11 @@ Create a simple barplot using `ggplot` like this:
 
 
 ```r
-ggplot(data = nest_data, aes(x = n, y = freq)) +
+ggplot(data = covid, aes(x = age, y = freq)) +
   geom_col()
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-16-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-11-1.png" width="288" /&gt;
 
 
 ---
@@ -648,7 +539,7 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
 
 --
 
-`ggplot(data = nest_data)` looks the same. 
+`ggplot(data = covid)` looks the same. 
 
 --
 
@@ -660,7 +551,7 @@ Thus...
 
 ## A barplot
 
-`ggplot(data = nest_data, aes(x = n, y = freq))` produces a plot with axes 
+`ggplot(data = covid, aes(x = age, y = freq))` produces a plot with axes 
 
 --
 
@@ -716,11 +607,11 @@ Open the manual page using:
 Change the fill of the bars using `fill`:
 
 ```r
-ggplot(data = nest_data, aes(x = n, y = freq)) +
+ggplot(data = covid, aes(x = age, y = freq)) +
   geom_col(fill = "lightblue")
 ```
 .pull-left[
-&lt;img src="index_files/figure-html/unnamed-chunk-18-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-13-1.png" width="288" /&gt;
 ]
 --
 .pull-right[
@@ -740,11 +631,11 @@ We can set (map) fill aesthetic to a particular colour inside `geom_col()` or ma
 # Using manual: Alter a ggplot
 
 ```r
-ggplot(data = nest_data, aes(x = n, y = freq, fill = n)) +
+ggplot(data = covid, aes(x = age, y = freq, fill = age)) +
   geom_col()
 ```
 .pull-left[
-&lt;img src="index_files/figure-html/unnamed-chunk-19-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-14-1.png" width="288" /&gt;
 ]
 --
 .pull-right[
@@ -763,11 +654,11 @@ Can you use the manual to put the bars next to each other?
 
 
 ```r
-ggplot(data = nest_data, aes(x = n, y = freq)) +
+ggplot(data = covid, aes(x = age, y = freq)) +
   geom_col(fill = "lightblue", width = 1)
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-20-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-15-1.png" width="288" /&gt;
 
 
 ---
@@ -778,8 +669,8 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
 .pull-left[
 
 ```r
-ggplot(data = nest_data,
-       aes(x = n, y = freq)) +
+ggplot(data = covid,
+       aes(x = age, y = freq)) +
   geom_col(fill = "lightblue", 
            width = 1, 
            colour = "black")
@@ -787,7 +678,7 @@ ggplot(data = nest_data,
 ]
 
 .pull-right[
-&lt;img src="index_files/figure-html/unnamed-chunk-21-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-16-1.png" width="288" /&gt;
 ]
 ---
 # Top Tip
@@ -822,7 +713,7 @@ Each 'layer' is added to the ggplot() command with a `+`
 
 
 ```r
-ggplot(data = nest_data, aes(x = n, y = freq)) +
+ggplot(data = covid, aes(x = age, y = freq)) +
   geom_col(fill = "lightblue", 
            width = 1, 
            colour = "black") +
@@ -830,11 +721,11 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
 * scale_y_continuous(expand = c(0, 0))
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-22-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-17-1.png" width="288" /&gt;
 
 .pull-right[
 .footnote[
-&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  Look up `scale_x_discrete` in the manual and work out how to change "n" to "Number of Males"]
+&lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  Look up `scale_x_discrete` in the manual and work out how to change "age" to "Age group"]
 ]
 
 ---
@@ -842,17 +733,17 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
 
 
 ```r
-ggplot(data = nest_data, aes(x = n, y = freq)) +
+ggplot(data = covid, aes(x = age, y = freq)) +
   geom_col(fill = "lightblue", 
            width = 1, 
            colour = "black") +
   scale_x_discrete(expand = c(0, 0),
-*                  name = "Number of Males") +
+*                  name = "Age group") +
   scale_y_continuous(expand = c(0, 0),
-                     name = "Number of Nests") 
+                     name = "Number of deaths") 
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-23-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-18-1.png" width="288" /&gt;
 
 ---
 
@@ -869,7 +760,7 @@ Summarise
  &lt;thead&gt;
 &lt;tr&gt;
 &lt;th style="border-bottom:hidden" colspan="2"&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt; Interorbital distance&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt; Blood glucose&lt;/div&gt;&lt;/th&gt;
 &lt;/tr&gt;
   &lt;tr&gt;
    &lt;th style="text-align:left;"&gt; Population &lt;/th&gt;
@@ -880,16 +771,16 @@ Summarise
  &lt;/thead&gt;
 &lt;tbody&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 40 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 11.24 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.12 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Diabetic &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.79 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.14 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 40 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 11.70 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.09 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Healthy &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.95 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.16 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -897,13 +788,9 @@ Summarise
 .pull-right[
 Plot
 
-&lt;img src="index_files/figure-html/unnamed-chunk-25-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-20-1.png" width="288" /&gt;
 ]
 ---
-background-image: url(pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
 # Working with Data 
  
 ## Importing
@@ -924,7 +811,7 @@ This section will teach you about three concepts:
 
 --
 
-We will work with the interorbital distances of domestic pigeons in two different populations: A and B
+We will work with the blood glucose (mmol/l) of people in two different populations: Healthy and Diabetic
 
 ---
 # Working with Data 
@@ -953,11 +840,11 @@ Naming: human and machine readable
 ```
 -- stem_cell_rna_2019
    |__stem_cell_rna_2019.Rproj
-   |__raw_ data
+   |__data_raw
       |__2019-03-21_donor_1.csv
       |__2019-03-21_donor_2.csv
       |__2019-03-21_donor_3.csv
-   |__processed_data
+   |__data_processed
       |__all_long.txt
       |__all_wide.txt
    |__figures
@@ -990,13 +877,13 @@ Naming: human and machine readable
 # Working with Data 
 ## Organising
 &lt;br&gt;
-Make two folders in your Project directory (this is also your working directory) called 'data'
+Make a folders in your Project directory (this is also your working directory) called 'data_raw'
 
 The easiest way to do this is in RStudio  - see the bottom right Files panel
 
 --
 
-Save a copy of [pigeon.txt](data/pigeon.txt) to the 'data' folder
+Save a copy of [bloods.txt](data/bloods.txt) to the 'data_raw' folder
 
 --
 
@@ -1014,14 +901,14 @@ to the file in the `read.table()` command:
 
 
 ```r
-pigeon &lt;- read.table("data/pigeon.txt", 
+bloods &lt;- read.table("data_raw/bloods.txt", 
                      header = TRUE)
 ```
 
 
 --
 
-The `data/` part is the 'relative path' to the file. 
+The `data_raw/` part is the 'relative path' to the file. 
 
 ---
 
@@ -1045,18 +932,18 @@ A **relative path** gives the location relative to the working directory.
 ---
 # What is a path?
 ## Absolute paths
-For example the absolute path for a file, `pigeon.txt` can be:  
-  * windows: `M:/web/58M_BDS_2019/data/pigeon.txt`  &lt;sup&gt;1&lt;/sup&gt;
+For example the absolute path for a file, `bloods.txt` can be:  
+  * windows: `M:/web/58M_BDS_2019/data_raw/bloods.txt`  &lt;sup&gt;1&lt;/sup&gt;
 .footnote[
 .font70[
-1. this appears as `M:\web\58M_BDS_2019\data\pigeon.txt` in Windows Explorer because Microsoft DOS didn't have directories in 1981 when it was released. It then used the `/` character for 'switches' (instead of the unix convention `-`)]
+1. this appears as `M:\web\58M_BDS_2019\data_raw\bloods.txt` in Windows Explorer because Microsoft DOS didn't have directories in 1981 when it was released. It then used the `/` character for 'switches' (instead of the unix convention `-`)]
 ]
 --
 
-  * unix systems: `/users/er13/web/58M_BDS_2019/data/pigeon.txt`  
+  * unix systems: `/users/er13/web/58M_BDS_2019/data_raw/bloods.txt`  
 --
 
-  * web: `http://www-users.york.ac.uk/~er13/58M_BDS_2019/data/pigeon.txt`  
+  * web: `http://www-users.york.ac.uk/~er13/58M_BDS_2019/data_raw/bloods.txt`  
 ---
 # What is a path?
 
@@ -1066,37 +953,37 @@ A working directory is where a program thinks you are and is returned by `getwd(
 
 --
 
-For example when `pigeon.txt` is in:  
-  * the working directory (wd):  `pigeon.txt`  
+For example when `bloods.txt` is in:  
+  * the working directory (wd):  `bloods.txt`  
 --
 
-  * a directory called 'data' which is in the wd: `data/pigeon.txt`  
+  * a directory called 'data_raw' which is in the wd: `data_raw/bloods.txt`  
 --
 
-  * the directory above the wd: `pigeon.txt`  
+  * the directory above the wd: `../bloods.txt`  
 --
 
-  * a directory called 'data' which is in the directory above the wd: `data/pigeon.txt`  
+  * a directory called 'data_raw' which is in the directory above the wd: `../data_raw/bloods.txt`  
 
 ---
 # Working with Data 
 ## Importing
 
-Look at the structure of the dataframe pigeon using `str()`
+Look at the structure of the dataframe bloods using `str()`
 
 
 ```r
-str(pigeon)
+str(bloods)
 ```
 
 ```
-## 'data.frame':	40 obs. of  2 variables:
-##  $ A: num  12.4 11.2 11.6 12.3 11.8 10.7 11.3 11.6 12.3 10.5 ...
-##  $ B: num  12.6 11.3 12.1 12.2 11.8 11.5 11.2 11.9 11.2 12.1 ...
+## 'data.frame':	30 obs. of  2 variables:
+##  $ Healthy : num  2.99 3.15 2.63 4.29 3.65 2.93 5.36 3.97 4.69 3.08 ...
+##  $ Diabetic: num  3.62 5.73 4.91 4.76 3.85 5.7 5.29 4.77 4.68 4.55 ...
 ```
 --
 
-It's a dataframe with two variables (columns) called A and B
+It's a dataframe with two variables (columns) called Healthy and Diabetic
 
 The datatype of both variables is numeric.
 ---
@@ -1119,13 +1006,12 @@ So to output all of the values of one column we can use:
 .scroll-output-width[
 
 ```r
-pigeon$A
+bloods$Healthy
 ```
 
 ```
-##  [1] 12.4 11.2 11.6 12.3 11.8 10.7 11.3 11.6 12.3 10.5 12.1 10.4 10.8 11.9 10.9
-## [16] 10.8 10.4 12.0 11.7 11.3 11.5 11.8 10.3 10.3 11.5 10.7 11.3 11.6 13.3 10.7
-## [31] 12.1 10.2 10.8 11.4 10.9 10.3 10.4 10.0 11.2 11.3
+##  [1] 2.99 3.15 2.63 4.29 3.65 2.93 5.36 3.97 4.69 3.08 5.13 4.50 3.53 4.11 6.23
+## [16] 4.36 3.75 2.88 2.80 3.85 4.91 5.22 3.79 4.39 4.27 3.01 3.27 3.99 4.23 3.68
 ```
 ]
 ---
@@ -1139,21 +1025,21 @@ Thus to find the mean of a single column data:
 
 
 ```r
-mean(pigeon$A)
+mean(bloods$Healthy)
 ```
 
 ```
-## [1] 11.24
+## [1] 3.954667
 ```
 
 
 
 ```r
-mean(pigeon$B)
+mean(bloods$Diabetic)
 ```
 
 ```
-## [1] 11.7025
+## [1] 4.788
 ```
 ]
 .pull-right[
@@ -1222,28 +1108,26 @@ NOT TIDY!
 &lt;table class="table" style="font-size: 16px; margin-left: auto; margin-right: auto;"&gt;
  &lt;thead&gt;
   &lt;tr&gt;
-   &lt;th style="text-align:right;"&gt; A &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; B &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Healthy &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Diabetic &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
 &lt;tbody&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 12.4 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 12.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.99 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.62 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 11.2 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 11.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.73 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 11.6 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 12.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.63 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.91 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 ]
-
-
 .pull-right[
 
 TIDY!
@@ -1251,33 +1135,33 @@ TIDY!
  &lt;thead&gt;
   &lt;tr&gt;
    &lt;th style="text-align:left;"&gt; population &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; distance &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; glucose &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
 &lt;tbody&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 12.4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Healthy &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.99 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 11.2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Diabetic &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.62 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 11.6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Healthy &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.15 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 12.6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Diabetic &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.73 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 11.3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Healthy &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.63 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 12.1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Diabetic &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.91 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -1300,17 +1184,17 @@ We can make the data tidy with `pivot_longer()`&lt;sup&gt;1&lt;/sup&gt;.
 .scroll-output-width[
 
 ```r
-pigeon2 &lt;- pivot_longer(data = pigeon, 
+bloods2 &lt;- pivot_longer(data = bloods, 
                         cols = everything(), 
                         names_to = "population", 
-                        values_to = "distance")
-str(pigeon2)
+                        values_to = "glucose")
+str(bloods2)
 ```
 
 ```
-## tibble [80 x 2] (S3: tbl_df/tbl/data.frame)
-##  $ population: chr [1:80] "A" "B" "A" "B" ...
-##  $ distance  : num [1:80] 12.4 12.6 11.2 11.3 11.6 12.1 12.3 12.2 11.8 11.8 ...
+## tibble [60 x 2] (S3: tbl_df/tbl/data.frame)
+##  $ population: chr [1:60] "Healthy" "Diabetic" "Healthy" "Diabetic" ...
+##  $ glucose   : num [1:60] 2.99 3.62 3.15 5.73 2.63 4.91 4.29 4.76 3.65 3.85 ...
 ```
 ]
 
@@ -1336,15 +1220,15 @@ To summarise multiple group data in tidy form:
 
 
 ```r
-pigeon2 %&gt;% 
+bloods2 %&gt;% 
   group_by(population) %&gt;% 
-  summarise(mean = mean(distance))
+  summarise(mean = mean(glucose))
 ```
 
 --
 
 This can be read as:
-  - take pigeon2 *and then*  
+  - take bloods2 *and then*  
   - group it by population *and then*  
   - summarise it by calculating the mean  
 
@@ -1363,20 +1247,20 @@ The result:
 ## # A tibble: 2 x 2
 ##   population  mean
 ##   &lt;chr&gt;      &lt;dbl&gt;
-## 1 A           11.2
-## 2 B           11.7
+## 1 Diabetic    4.79
+## 2 Healthy     3.95
 ```
 ---
 # Working with Data 
 
-We can add the number of pigeons in each group to the summary using the `length()` function.
+We can add the number of individuals in each group to the summary using the `length()` function.
 
 
 ```r
-pigeon2 %&gt;% 
+bloods2 %&gt;% 
   group_by(population) %&gt;% 
-  summarise(mean = mean(distance),
-*           n = length(distance))
+  summarise(mean = mean(glucose),
+*           n = length(glucose))
 ```
 
 .footnote[
@@ -1395,8 +1279,8 @@ The result:
 ## # A tibble: 2 x 3
 ##   population  mean     n
 ##   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;
-## 1 A           11.2    40
-## 2 B           11.7    40
+## 1 Diabetic    4.79    30
+## 2 Healthy     3.95    30
 ```
 
 
@@ -1405,20 +1289,20 @@ The result:
 
 
 ```r
-pigeon2 %&gt;% 
+bloods2 %&gt;% 
   group_by(population) %&gt;% 
-  summarise(mean = mean(distance),
-            n = length(distance),
-*           sd = sd(distance),
+  summarise(mean = mean(glucose),
+            n = length(glucose),
+*           sd = sd(glucose),
 *           se = sd/sqrt(n))
 ```
 
 ```
 ## # A tibble: 2 x 5
-##   population  mean     n    sd     se
-##   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;
-## 1 A           11.2    40 0.740 0.117 
-## 2 B           11.7    40 0.573 0.0906
+##   population  mean     n    sd    se
+##   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Diabetic    4.79    30 0.760 0.139
+## 2 Healthy     3.95    30 0.871 0.159
 ```
 
 ---
@@ -1427,14 +1311,14 @@ To plot this data as a histogram:
 
 
 ```r
-ggplot(data = pigeon2, aes(x = distance)) +
+ggplot(data = bloods2, aes(x = glucose)) +
 * geom_histogram(bins = 10,
                  col = "black") +
-  scale_x_continuous(name = "Interorbital distance (mm)")
+  scale_x_continuous(name = "Blood glucose (mmol/l)")
 ```
 .pull-left[
 
-&lt;img src="index_files/figure-html/unnamed-chunk-42-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-36-1.png" width="288" /&gt;
 ]
 
 --
@@ -1453,13 +1337,13 @@ To plot multiple group data in tidy form we map the population variable to the `
 
 
 ```r
-*ggplot(data = pigeon2, aes(x = distance, fill = population)) +
+*ggplot(data = bloods2, aes(x = glucose, fill = population)) +
   geom_histogram(bins = 10, 
                  col = "black") +
-  scale_x_continuous(name = "Interorbital distance (mm)")
+  scale_x_continuous(name = "Blood glucose (mmol/l)")
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-43-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-37-1.png" width="288" /&gt;
 .pull-right[
 .footnote[
 &lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  Make the axes cross at (0,0)]
@@ -1471,10 +1355,10 @@ To plot multiple group data in tidy form we map the population variable to the `
 
 
 ```r
-ggplot(data = pigeon2, aes(x = distance, fill = population)) + 
+ggplot(data = bloods2, aes(x = glucose, fill = population)) + 
   geom_histogram(bins = 10, 
                  col = "black") +
-  scale_x_continuous(name = "Interorbital distance (mm)",
+  scale_x_continuous(name = "Blood glucose (mmol/l)",
 *                    expand = c(0, 0)) +
   scale_y_continuous(name = "Frequency",
 *                    expand = c(0, 0))
@@ -1484,21 +1368,21 @@ result on next slide.
 # Working with Data 
 The result:
 
-&lt;img src="index_files/figure-html/unnamed-chunk-44-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-38-1.png" width="288" /&gt;
 
 ---
 # Working with Data 
 
-`geom_density()` can also be used when `distance` is mapped to `x` and  `y` gives a measure of occurrence.
+`geom_density()` can also be used when `glucose` is mapped to `x` and  `y` gives a measure of occurrence.
 
 
 ```r
-ggplot(data = pigeon2, aes(x = distance, fill = population)) +
+ggplot(data = bloods2, aes(x = glucose, fill = population)) +
 * geom_density(col = "black") +
-  scale_x_continuous(name = "Interorbital distance (mm)")
+  scale_x_continuous(name = "Blood glucose (mmol/l)")
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-45-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-39-1.png" width="288" /&gt;
 
 ---
 # Working with Data 
@@ -1507,12 +1391,12 @@ Alter the transparency using `alpha`:
 
 
 ```r
-ggplot(data = pigeon2, aes(x = distance, fill = population)) +
+ggplot(data = bloods2, aes(x = glucose, fill = population)) +
 * geom_density(col = "black", alpha = 0.3) +
-  scale_x_continuous(name = "Interorbital distance (mm)")
+  scale_x_continuous(name = "Blood glucose (mmol/l)")
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-46-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-40-1.png" width="288" /&gt;
 
 ---
 # Working with Data 
@@ -1526,13 +1410,13 @@ All [elements can be customised individually](https://ggplot2.tidyverse.org/refe
 
 
 ```r
-ggplot(data = pigeon2, aes(x = distance, fill = population)) +
+ggplot(data = bloods2, aes(x = glucose)) +
   geom_density(col = "black", alpha = 0.3) +
-  scale_x_continuous(name = "Interorbital distance (mm)") +
+  scale_x_continuous(name = "Blood glucose (mmol/l)") +
 * theme_classic()
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-47-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-41-1.png" width="288" /&gt;
 
 ---
 # Working with Data 
@@ -1540,7 +1424,7 @@ ggplot(data = pigeon2, aes(x = distance, fill = population)) +
 A different kind of plot:
 
 .pull-left[
-&lt;img src="index_files/figure-html/unnamed-chunk-48-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-42-1.png" width="288" /&gt;
 ]
 
 .pull-right[
@@ -1553,10 +1437,10 @@ Note: We need to change the `aes()` as well as the `geom` because this figure ha
 
 
 ```r
-ggplot(data = pigeon2, aes(x = population, y = distance)) + 
+ggplot(data = bloods2, aes(x = population, y = glucose, fill = population)) + 
   geom_boxplot() +                            
   scale_x_discrete(name = "Population") +
-  scale_y_continuous(name = "Interorbital distance (mm)",
+  scale_y_continuous(name = "Blood glucose (mmol/l)",
                    expand = c(0, 0),
                    limits = c(0, 15)) +
   theme_classic()
@@ -1569,7 +1453,7 @@ ggplot(data = pigeon2, aes(x = population, y = distance)) +
 ---
 # Working with Data 
 
-&lt;img src="index_files/figure-html/unnamed-chunk-49-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-43-1.png" width="288" /&gt;
 ---
 # Summary
 * Use a script and comment it  
@@ -1584,7 +1468,7 @@ ggplot(data = pigeon2, aes(x = population, y = distance)) +
 
 class: inverse
 
-# 🥳 Congratulations! Keep practising! 🎂 
+# 🥳 Congratulations! Keep practising! 🎉 
 
 .footnote[
 Slides made with with xaringan &lt;a name=cite-xaringan&gt;&lt;/a&gt;([Xie, 2019](#bib-xaringan))
@@ -1651,7 +1535,7 @@ Twitter: [@er13_r](https://twitter.com/er13_r)
 GitHub: [3mmaRand](https://github.com/3mmaRand)  
 blog: https://buzzrbeeline.blog/  
 &lt;br&gt;
-&lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"&gt;Royal Society of Biology Online: An Introduction to Reproducible Analyses in R&lt;/span&gt; by &lt;span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName"&gt;Emma Rand&lt;/span&gt; is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
+&lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;&lt;span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"&gt;N8 Centre of Excellence in Computationally Intensive Research Training Event: An Introduction to Reproducible Analyses in R&lt;/span&gt; by &lt;span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName"&gt;Emma Rand&lt;/span&gt; is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

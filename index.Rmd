@@ -308,31 +308,36 @@ class: inverse
 ---
 # Typing in data, calcs, plots
 
-## The goal
-We will work some data on the number of males in 64 bird nests with a clutch size of 5. You are going to type data in R, summarise and plot it
+Number of deaths involving COVID-19 in different age groups in March and April, UK.<sup>1</sup>
+
+.footnote[ 
+.font60[
+1. Source: Office for National Statistics licensed under the Open Government Licence.]
+]
+
 --
 .pull-left[
 
 ```{r , echo=FALSE}
-n <- c(0, 1, 2, 3, 4, 5)
-freq <- c(4, 13, 14, 15, 13, 5)
-df <- data.frame(n, freq)
+age <- c("20-24", "25-29", "30-34", "35-39", "40-44", "45-49", "50-54")
+freq <- c(139, 210, 319, 555, 852, 1640, 2842)
+df <- data.frame(age, freq)
 knitr::kable(df, 
              format = "html",
-             col.names = c("No. males", "No. nests"),
-             row.names = FALSE)%>%
-  kable_styling(font_size = 16)
+             col.names = c("Age group", "No. deaths"),
+             row.names = FALSE) %>%
+  kable_styling(font_size = 14)
 ```
 ]
 .pull-right[
 
 ```{r , echo=FALSE, fig.height=3}
-nest_data <- data.frame(n = factor(n), freq)
-ggplot(data = nest_data, aes(x = n, y = freq)) +
+covid <- data.frame(age, freq)
+ggplot(data = covid, aes(x = age, y = freq)) +
   geom_col(colour = "black", fill = "white", width = 1) +
-  scale_x_discrete(name = "Number of males",
+  scale_x_discrete(name = "Age group",
                    expand = c(0, 0)) +
-  scale_y_continuous(name = "Number of nests",
+  scale_y_continuous(name = "Number of deaths",
                      expand = c(0, 0)) +
   theme_classic()
 ```
@@ -348,7 +353,7 @@ In RStudio do File | New project | New directory
 
 Be purposeful about where you create it and name it.
 
-I suggest `birds`
+I suggest `covid_deaths`
 
 --
 
@@ -361,129 +366,57 @@ Make a new script ![new script](pics/newscript.png) and save it as analysis.R to
 
 ## Data structures
 
-Make a vector `n` that holds the numbers 0 to 5. 
+Make a vector `age` that holds the numbers 0 to 5. 
 ```{r}
-# the number of males in a clutch of five
-n <- c(0, 1, 2, 3, 4, 5)
+# the age groups
+age <- c("20-24", "25-29", "30-34", "35-39", "40-44", "45-49", "50-54")
 ```
 
-* Write your command in the analysis.R  
+* Write your command in analysis.R  
 
 --
 
-* Notice I have used a comment  
+* Use comments!  
 --
 
-* Cursor on the line you want to execute  
-
---
-
-* Execute with ![Run](pics/runbutton.png) or Ctrl+Enter 
+* Cursor on the line you want to execute, then ![Run](pics/runbutton.png) or Ctrl+Enter 
 
 ---
 # Typing in data, calcs, plots
 
 ## Data structures
 
-Let's take a look at it using `str()` (structure) and `class()`
+Let's take a look at it using `str()` (structure)
 --
 ```{r}
-class(n)
-```
---
-```{r}
-str(n)
+str(age)
 ```
 
 It's a numeric vector.
  
 
-
 ---
 # Typing in data, calcs, plots
 
 ## Data structures
 
-Create a vector, `freq`, containing the numbers of nests with 0 to 5 males. 
+Create a vector, `freq`, containing the number of deaths in each age group. 
 
 ```{r}
-# the number of nests with 0 to 5 males
-freq <- c(4, 13, 14, 15, 13, 5)
+# the number of deaths in each age group
+freq <- c(139, 210, 319, 555, 852, 1640, 2842)
 ```
 ---
 # Typing in data, calcs, plots
 
-## Total number of nests
+## Total number of deaths
 
-We can use `sum(freq)` to check the total number of nests is 64.
+We can use `sum(freq)` to check the total number of deaths.
 
 ```{r}
-# the total number of nests
+# the total number of deaths
 sum(freq)
 ```
-
----
-# Typing in data, calcs, plots
-
-## Finding the mean
-We have frequencies so to find the mean number of males per nest we need the total number of males:
-.pull-left[
-```{r , echo=FALSE}
-df$product <- df$n * df$freq
-totalm <- sum(df$product)
-totaln <- sum(df$freq)
-dfchar <- df %>%
-  mutate_all(as.character)
-dfchar <- rbind(dfchar, c("Total", totaln, totalm))
-dfchar %>% kable(format = "html",
-                 col.names = c("No. males", "No. nests", "No. males *No. nests"),
-                 row.names = FALSE) %>% 
-  kable_styling(font_size = 16) %>%
-  row_spec(6, hline_after = TRUE) %>%
-  row_spec(7, bold = TRUE, background = "#C0C2C9")
-```
-]
-
-.pull-right[
-
-$$\frac{163}{64} = 2.55$$
-]
-
----
-# Typing in data, calcs, plots
-
-## Finding the mean
-Total number of nests:
-```{r}
-total_nests <- sum(freq)
-```
- 
---
-Total number of males
-```{r}
-total_males <- sum(n * freq)
-```
-
----
-# Typing in data, calcs, plots
-
-## Finding the mean
-Mean number of males per nest:
-```{r}
-total_males/total_nests
-```
-
-
----
-# Why it works
-
-R works 'elementwise' unlike most programming lanaguges.  
-` n * freq`
-gives
-
-$$\begin{bmatrix}0\\1\\2\\3\\4\\5\end{bmatrix}\times\begin{bmatrix}4\\13\\14\\15\\13\\5\end{bmatrix}=\begin{bmatrix}0\\13\\28\\45\\52\\25\end{bmatrix}$$
-
-It was designed to make it easy to work with data.
 
 ---
 
@@ -538,12 +471,10 @@ We will also later use `dplyr` and `tidyr` functions also from `tidyverse`.
 
 `ggplot()` takes a dataframe for an argument
 
-We can make a dataframe of the two vectors, `n` and `freq`: 
+We can make a dataframe of the two vectors, `age` and `freq`: 
 ```{r}
-nest_data <- data.frame(n = factor(n), freq)
+covid <- data.frame(age, freq)
 ```
-
-`n` was made into a factor (a categorical variable).
 
 ---
 # Plotting using ggplot2
@@ -551,14 +482,14 @@ nest_data <- data.frame(n = factor(n), freq)
 ## Data structure for `ggplot()` 
 Check:
 ```{r}
-str(nest_data)
+str(covid)
 ```
 
 --
 
-`nest_data` is the name we have given the dataframe
+`covid` is the name we have given the dataframe
 
-Click on `nest_data` in the Environment. 
+Click on `covid` in the Environment. 
 
 ---
 # Plotting using ggplot2
@@ -568,7 +499,7 @@ Click on `nest_data` in the Environment.
 Create a simple barplot using `ggplot` like this:
 
 ```{r, fig.height=3.5}
-ggplot(data = nest_data, aes(x = n, y = freq)) +
+ggplot(data = covid, aes(x = age, y = freq)) +
   geom_col()
 
 ```
@@ -583,7 +514,7 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
 
 --
 
-`ggplot(data = nest_data)` looks the same. 
+`ggplot(data = covid)` looks the same. 
 
 --
 
@@ -595,7 +526,7 @@ Thus...
 
 ## A barplot
 
-`ggplot(data = nest_data, aes(x = n, y = freq))` produces a plot with axes 
+`ggplot(data = covid, aes(x = age, y = freq))` produces a plot with axes 
 
 --
 
@@ -649,7 +580,7 @@ Open the manual page using:
 
 Change the fill of the bars using `fill`:
 ```{r plot-last1, fig.show = 'hide'}
-ggplot(data = nest_data, aes(x = n, y = freq)) +
+ggplot(data = covid, aes(x = age, y = freq)) +
   geom_col(fill = "lightblue")
 
 ```
@@ -674,7 +605,7 @@ We can set (map) fill aesthetic to a particular colour inside `geom_col()` or ma
 ---
 # Using manual: Alter a ggplot
 ```{r plot-last2, fig.show = 'hide'}
-ggplot(data = nest_data, aes(x = n, y = freq, fill = n)) +
+ggplot(data = covid, aes(x = age, y = freq, fill = age)) +
   geom_col()
 
 ```
@@ -699,7 +630,7 @@ Can you use the manual to put the bars next to each other?
 --
 
 ```{r fig.height=2.8}
-ggplot(data = nest_data, aes(x = n, y = freq)) +
+ggplot(data = covid, aes(x = age, y = freq)) +
   geom_col(fill = "lightblue", width = 1)
 ```
 
@@ -711,8 +642,8 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
 
 .pull-left[
 ```{r plot-last3, fig.show="hide"}
-ggplot(data = nest_data,
-       aes(x = n, y = freq)) +
+ggplot(data = covid,
+       aes(x = age, y = freq)) +
   geom_col(fill = "lightblue", 
            width = 1, 
            colour = "black")
@@ -755,7 +686,7 @@ Each 'layer' is added to the ggplot() command with a `+`
 # Alter a ggplot: axes
 
 ```{r fig.height=3.5}
-ggplot(data = nest_data, aes(x = n, y = freq)) +
+ggplot(data = covid, aes(x = age, y = freq)) +
   geom_col(fill = "lightblue", 
            width = 1, 
            colour = "black") +
@@ -765,21 +696,21 @@ ggplot(data = nest_data, aes(x = n, y = freq)) +
 
 .pull-right[
 .footnote[
-`r text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)`  Look up `scale_x_discrete` in the manual and work out how to change "n" to "Number of Males"]
+`r text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)`  Look up `scale_x_discrete` in the manual and work out how to change "age" to "Age group"]
 ]
 
 ---
 # Alter a ggplot: axes
 
 ```{r fig.height=2.5}
-ggplot(data = nest_data, aes(x = n, y = freq)) +
+ggplot(data = covid, aes(x = age, y = freq)) +
   geom_col(fill = "lightblue", 
            width = 1, 
            colour = "black") +
   scale_x_discrete(expand = c(0, 0),
-                   name = "Number of Males") + #<<
+                   name = "Age group") + #<<
   scale_y_continuous(expand = c(0, 0),
-                     name = "Number of Nests") 
+                     name = "Number of deaths") 
 
 ```
 
@@ -795,17 +726,17 @@ class: inverse
 .pull-left[
 Summarise
 ```{r echo=FALSE}
-pigeon <- read.table("data/pigeon.txt", header = T)
-pigeon2 <- pivot_longer(data = pigeon,
+bloods <- read.table("data/bloods.txt", header = T)
+bloods2 <- pivot_longer(data = bloods,
                         cols = everything(), 
-                        names_to = "population",
-                        values_to = "distance")
-sumpig <- pigeon2 %>%
+                        values_to = "glucose",
+                        names_to = "population")
+sumblood <- bloods2 %>%
   group_by(population) %>% 
-  summarise(n = length(distance),
-            mean = mean(distance),
-            se = sd(distance)/sqrt(n))
-sumpig %>% 
+  summarise(n = length(glucose),
+            mean = mean(glucose),
+            se = sd(glucose)/sqrt(n))
+sumblood %>% 
     kable(format = "html",
           digits = 2,
                  col.names = c("Population",
@@ -813,7 +744,7 @@ sumpig %>%
                                "Mean",
                                "SE"),
                  row.names = FALSE) %>%
-  add_header_above(c(" " = 2, " Interorbital distance" = 2)) %>%
+  add_header_above(c(" " = 2, " Blood glucose" = 2)) %>%
   kable_styling(font_size = 16)
 
 ```
@@ -822,20 +753,16 @@ sumpig %>%
 Plot
 
 ```{r echo=FALSE}
-ggplot(data = pigeon2, aes(x = distance, fill = population))  +
+ggplot(data = bloods2, aes(x = glucose, fill = population))  +
   geom_density(col = "black", alpha = 0.3) +
    scale_x_continuous(expand = c(0, 0),
-                   name = "Interorbital distance (mm)") +
+                   name = "Blood glucose (mmol/l)") +
   scale_y_continuous(expand = c(0, 0),
                      name = "Density") +
   theme_classic()
 ```
 ]
 ---
-background-image: url(pics/interorbital.png)
-background-position: 100% 0%
-background-size: 180px
-
 # Working with Data 
  
 ## Importing
@@ -856,7 +783,7 @@ This section will teach you about three concepts:
 
 --
 
-We will work with the interorbital distances of domestic pigeons in two different populations: A and B
+We will work with the blood glucose (mmol/l) of people in two different populations: Healthy and Diabetic
 
 ---
 # Working with Data 
@@ -885,11 +812,11 @@ Naming: human and machine readable
 ```
 -- stem_cell_rna_2019
    |__stem_cell_rna_2019.Rproj
-   |__raw_ data
+   |__data_raw
       |__2019-03-21_donor_1.csv
       |__2019-03-21_donor_2.csv
       |__2019-03-21_donor_3.csv
-   |__processed_data
+   |__data_processed
       |__all_long.txt
       |__all_wide.txt
    |__figures
@@ -922,13 +849,13 @@ Naming: human and machine readable
 # Working with Data 
 ## Organising
 <br>
-Make two folders in your Project directory (this is also your working directory) called 'data'
+Make a folders in your Project directory (this is also your working directory) called 'data_raw'
 
 The easiest way to do this is in RStudio  - see the bottom right Files panel
 
 --
 
-Save a copy of [pigeon.txt](data/pigeon.txt) to the 'data' folder
+Save a copy of [bloods.txt](data/bloods.txt) to the 'data_raw' folder
 
 --
 
@@ -945,17 +872,17 @@ to the file in the `read.table()` command:
 
 
 ```{r eval=FALSE}
-pigeon <- read.table("data/pigeon.txt", 
+bloods <- read.table("data_raw/bloods.txt", 
                      header = TRUE)
 ```
 
 ```{r echo=FALSE}
-pigeon <- read.table("data/pigeon.txt", 
+bloods <- read.table("data/bloods.txt", 
                      header = TRUE)
 ```
 --
 
-The `data/` part is the 'relative path' to the file. 
+The `data_raw/` part is the 'relative path' to the file. 
 
 ---
 
@@ -979,18 +906,18 @@ A **relative path** gives the location relative to the working directory.
 ---
 # What is a path?
 ## Absolute paths
-For example the absolute path for a file, `pigeon.txt` can be:  
-  * windows: `M:/web/58M_BDS_2019/data/pigeon.txt`  <sup>1</sup>
+For example the absolute path for a file, `bloods.txt` can be:  
+  * windows: `M:/web/58M_BDS_2019/data_raw/bloods.txt`  <sup>1</sup>
 .footnote[
 .font70[
-1. this appears as `M:\web\58M_BDS_2019\data\pigeon.txt` in Windows Explorer because Microsoft DOS didn't have directories in 1981 when it was released. It then used the `/` character for 'switches' (instead of the unix convention `-`)]
+1. this appears as `M:\web\58M_BDS_2019\data_raw\bloods.txt` in Windows Explorer because Microsoft DOS didn't have directories in 1981 when it was released. It then used the `/` character for 'switches' (instead of the unix convention `-`)]
 ]
 --
 
-  * unix systems: `/users/er13/web/58M_BDS_2019/data/pigeon.txt`  
+  * unix systems: `/users/er13/web/58M_BDS_2019/data_raw/bloods.txt`  
 --
 
-  * web: `http://www-users.york.ac.uk/~er13/58M_BDS_2019/data/pigeon.txt`  
+  * web: `http://www-users.york.ac.uk/~er13/58M_BDS_2019/data_raw/bloods.txt`  
 ---
 # What is a path?
 
@@ -1000,30 +927,30 @@ A working directory is where a program thinks you are and is returned by `getwd(
 
 --
 
-For example when `pigeon.txt` is in:  
-  * the working directory (wd):  `pigeon.txt`  
+For example when `bloods.txt` is in:  
+  * the working directory (wd):  `bloods.txt`  
 --
 
-  * a directory called 'data' which is in the wd: `data/pigeon.txt`  
+  * a directory called 'data_raw' which is in the wd: `data_raw/bloods.txt`  
 --
 
-  * the directory above the wd: `pigeon.txt`  
+  * the directory above the wd: `../bloods.txt`  
 --
 
-  * a directory called 'data' which is in the directory above the wd: `data/pigeon.txt`  
+  * a directory called 'data_raw' which is in the directory above the wd: `../data_raw/bloods.txt`  
 
 ---
 # Working with Data 
 ## Importing
 
-Look at the structure of the dataframe pigeon using `str()`
+Look at the structure of the dataframe bloods using `str()`
 
 ```{r }
-str(pigeon)
+str(bloods)
 ```
 --
 
-It's a dataframe with two variables (columns) called A and B
+It's a dataframe with two variables (columns) called Healthy and Diabetic
 
 The datatype of both variables is numeric.
 ---
@@ -1045,7 +972,7 @@ To refer a column inside a dataframe (a single column data) we need to use the d
 So to output all of the values of one column we can use:
 .scroll-output-width[
 ```{r}
-pigeon$A
+bloods$Healthy
 ```
 ]
 ---
@@ -1058,12 +985,12 @@ Thus to find the mean of a single column data:
 .pull-left[
 
 ```{r }
-mean(pigeon$A)
+mean(bloods$Healthy)
 ```
 
 
 ```{r }
-mean(pigeon$B)
+mean(bloods$Diabetic)
 ```
 ]
 .pull-right[
@@ -1122,7 +1049,7 @@ There may be more than one potential tidy structure.
 # Working with Data 
 
 ```{r echo=FALSE}
-pigeon <- read.table("data/pigeon.txt", header = T)
+bloods <- read.table("data/bloods.txt", header = T)
 ```
 
 ## Tidy format
@@ -1132,23 +1059,20 @@ Suppose we had just 3 individuals in each of two populations:
 .pull-left[
 NOT TIDY!
 ```{r echo=FALSE}
-knitr::kable(pigeon[1:3,], 
+bloods3 <- bloods[1:3,]
+knitr::kable(head(bloods3), 
              format = "html") %>%
   kable_styling(font_size = 16)
 ```
 ]
-```{r echo=FALSE}
-pigeon2 <- gather(data = pigeon, 
-                  key = population, 
-                  value = distance)
-```
-
 .pull-right[
 
 TIDY!
 ```{r echo=FALSE}
-knitr::kable(head(pigeon2[c(1:3,41:43),]), 
-             format = "html",
+bloods3 %>% pivot_longer(names_to = "population",
+                         values_to = "glucose",
+                         cols = everything()) %>% 
+knitr::kable(format = "html",
              row.names = FALSE) %>%
   kable_styling(font_size = 16)
 ```
@@ -1171,11 +1095,11 @@ We can make the data tidy with `pivot_longer()`<sup>1</sup>.
 .scroll-output-width[
 ```{r}
 
-pigeon2 <- pivot_longer(data = pigeon, 
+bloods2 <- pivot_longer(data = bloods, 
                         cols = everything(), 
                         names_to = "population", 
-                        values_to = "distance")
-str(pigeon2)
+                        values_to = "glucose")
+str(bloods2)
 ```
 ]
 
@@ -1200,15 +1124,15 @@ We will also use the pipe operator: ` %>% `
 To summarise multiple group data in tidy form:
 
 ```{r eval=FALSE}
-pigeon2 %>% 
+bloods2 %>% 
   group_by(population) %>% 
-  summarise(mean = mean(distance))
+  summarise(mean = mean(glucose))
 ```
 
 --
 
 This can be read as:
-  - take pigeon2 *and then*  
+  - take bloods2 *and then*  
   - group it by population *and then*  
   - summarise it by calculating the mean  
 
@@ -1223,20 +1147,20 @@ The `mean` before the `=` is just a name.
 The result:
 
 ```{r echo=FALSE}
-pigeon2 %>% 
+bloods2 %>% 
   group_by(population) %>% 
-  summarise(mean = mean(distance))
+  summarise(mean = mean(glucose))
 ```
 ---
 # Working with Data 
 
-We can add the number of pigeons in each group to the summary using the `length()` function.
+We can add the number of individuals in each group to the summary using the `length()` function.
 
 ```{r eval=FALSE}
-pigeon2 %>% 
+bloods2 %>% 
   group_by(population) %>% 
-  summarise(mean = mean(distance),
-            n = length(distance)) #<<
+  summarise(mean = mean(glucose),
+            n = length(glucose)) #<<
 ```
 
 .footnote[
@@ -1251,10 +1175,10 @@ pigeon2 %>%
 The result:
 
 ```{r echo=FALSE}
-pigeon2 %>% 
+bloods2 %>% 
   group_by(population) %>% 
-  summarise(mean = mean(distance),
-            n = length(distance)) #<<
+  summarise(mean = mean(glucose),
+            n = length(glucose)) #<<
 ```
 
 
@@ -1262,11 +1186,11 @@ pigeon2 %>%
 # Working with Data 
 
 ```{r}
-pigeon2 %>% 
+bloods2 %>% 
   group_by(population) %>% 
-  summarise(mean = mean(distance),
-            n = length(distance),
-            sd = sd(distance), #<<
+  summarise(mean = mean(glucose),
+            n = length(glucose),
+            sd = sd(glucose), #<<
             se = sd/sqrt(n))   #<<
 ```
 
@@ -1275,10 +1199,10 @@ pigeon2 %>%
 To plot this data as a histogram:
 
 ```{r plot-last4, fig.show = 'hide'}
-ggplot(data = pigeon2, aes(x = distance)) +
+ggplot(data = bloods2, aes(x = glucose)) +
   geom_histogram(bins = 10,               #<<
                  col = "black") +
-  scale_x_continuous(name = "Interorbital distance (mm)")
+  scale_x_continuous(name = "Blood glucose (mmol/l)")
   
 ```
 .pull-left[
@@ -1302,10 +1226,10 @@ This is whole data set, not separated by population!
 To plot multiple group data in tidy form we map the population variable to the `fill` aesthetic
 
 ```{r fig.height=3}
-ggplot(data = pigeon2, aes(x = distance, fill = population)) + #<<
+ggplot(data = bloods2, aes(x = glucose, fill = population)) + #<<
   geom_histogram(bins = 10, 
                  col = "black") +
-  scale_x_continuous(name = "Interorbital distance (mm)")
+  scale_x_continuous(name = "Blood glucose (mmol/l)")
   
 ```
 .pull-right[
@@ -1318,10 +1242,10 @@ ggplot(data = pigeon2, aes(x = distance, fill = population)) + #<<
 `r text_spec("Extra exercise:", background = "#25496b", color = "#fdf9f6", bold = TRUE)`  Make the axes cross at (0,0)
 
 ```{r plot-last5, fig.show = 'hide'}
-ggplot(data = pigeon2, aes(x = distance, fill = population)) + 
+ggplot(data = bloods2, aes(x = glucose, fill = population)) + 
   geom_histogram(bins = 10, 
                  col = "black") +
-  scale_x_continuous(name = "Interorbital distance (mm)",
+  scale_x_continuous(name = "Blood glucose (mmol/l)",
                      expand = c(0, 0)) + #<<
   scale_y_continuous(name = "Frequency",
                      expand = c(0, 0)) #<<
@@ -1339,12 +1263,12 @@ The result:
 ---
 # Working with Data 
 
-`geom_density()` can also be used when `distance` is mapped to `x` and  `y` gives a measure of occurrence.
+`geom_density()` can also be used when `glucose` is mapped to `x` and  `y` gives a measure of occurrence.
 
 ```{r fig.height=3}
-ggplot(data = pigeon2, aes(x = distance, fill = population)) +
+ggplot(data = bloods2, aes(x = glucose, fill = population)) +
   geom_density(col = "black") +               #<<
-  scale_x_continuous(name = "Interorbital distance (mm)")
+  scale_x_continuous(name = "Blood glucose (mmol/l)")
   
 ```
 
@@ -1354,9 +1278,9 @@ ggplot(data = pigeon2, aes(x = distance, fill = population)) +
 Alter the transparency using `alpha`:
 
 ```{r fig.height=3}
-ggplot(data = pigeon2, aes(x = distance, fill = population)) +
+ggplot(data = bloods2, aes(x = glucose, fill = population)) +
   geom_density(col = "black", alpha = 0.3) +    #<<
-  scale_x_continuous(name = "Interorbital distance (mm)")
+  scale_x_continuous(name = "Blood glucose (mmol/l)")
   
 ```
 
@@ -1371,9 +1295,9 @@ All [elements can be customised individually](https://ggplot2.tidyverse.org/refe
 # Working with Data 
 
 ```{r fig.height=3}
-ggplot(data = pigeon2, aes(x = distance, fill = population)) +
+ggplot(data = bloods2, aes(x = glucose)) +
   geom_density(col = "black", alpha = 0.3) +
-  scale_x_continuous(name = "Interorbital distance (mm)") +
+  scale_x_continuous(name = "Blood glucose (mmol/l)") +
   theme_classic()    #<<
   
 ```
@@ -1385,10 +1309,10 @@ A different kind of plot:
 
 .pull-left[
 ```{r echo=FALSE} 
-ggplot(data = pigeon2, aes(x = population, y = distance)) + 
+ggplot(data = bloods2, aes(x = population, y = glucose, fill = population)) + 
   geom_boxplot() +                            
   scale_x_discrete(name = "Population") +
-  scale_y_continuous(name = "Interorbital distance (mm)",
+  scale_y_continuous(name = "Blood glucose (mmol/l)",
                    expand = c(0, 0),
                    limits = c(0, 15)) +
   theme_classic()
@@ -1405,10 +1329,10 @@ Note: We need to change the `aes()` as well as the `geom` because this figure ha
 # Working with Data 
 
 ```{r plot-last6, fig.show = 'hide'} 
-ggplot(data = pigeon2, aes(x = population, y = distance)) + 
+ggplot(data = bloods2, aes(x = population, y = glucose, fill = population)) + 
   geom_boxplot() +                            
   scale_x_discrete(name = "Population") +
-  scale_y_continuous(name = "Interorbital distance (mm)",
+  scale_y_continuous(name = "Blood glucose (mmol/l)",
                    expand = c(0, 0),
                    limits = c(0, 15)) +
   theme_classic()
@@ -1471,7 +1395,8 @@ Twitter: [@er13_r](https://twitter.com/er13_r)
 GitHub: [3mmaRand](https://github.com/3mmaRand)  
 blog: https://buzzrbeeline.blog/  
 <br>
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Royal Society of Biology Online: An Introduction to Reproducible Analyses in R</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Emma Rand</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">N8 Centre of Excellence in Computationally Intensive Research Training Event: An Introduction to Reproducible Analyses in R</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Emma Rand</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+
 
 
 

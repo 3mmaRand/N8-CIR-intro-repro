@@ -66,7 +66,7 @@ Click "Download R for Linux". Instructions on installing are given for Debian, R
 
 ### Installing R Studio
 
-Downloads are available from https://www.rstudio.com/products/rstudio/download3/ (scroll to the end of the page to see the downloads).
+Downloads are available from https://rstudio.com/products/rstudio/download/. You want to download the free Desktop version for your operating system.
 
 **For Windows with no admin rights**
 
