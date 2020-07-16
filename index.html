@@ -342,7 +342,7 @@ Number of deaths involving COVID-19 in different age groups in March and April, 
 ]
 .pull-right[
 
-&lt;img src="index_files/figure-html/unnamed-chunk-3-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-89-1.png" width="288" /&gt;
 ]
 
 
@@ -527,7 +527,7 @@ ggplot(data = covid, aes(x = age, y = freq)) +
   geom_col()
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-11-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-97-1.png" width="288" /&gt;
 
 
 ---
@@ -611,7 +611,7 @@ ggplot(data = covid, aes(x = age, y = freq)) +
   geom_col(fill = "lightblue")
 ```
 .pull-left[
-&lt;img src="index_files/figure-html/unnamed-chunk-13-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-99-1.png" width="288" /&gt;
 ]
 --
 .pull-right[
@@ -635,7 +635,7 @@ ggplot(data = covid, aes(x = age, y = freq, fill = age)) +
   geom_col()
 ```
 .pull-left[
-&lt;img src="index_files/figure-html/unnamed-chunk-14-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-100-1.png" width="288" /&gt;
 ]
 --
 .pull-right[
@@ -658,7 +658,7 @@ ggplot(data = covid, aes(x = age, y = freq)) +
   geom_col(fill = "lightblue", width = 1)
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-15-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-101-1.png" width="288" /&gt;
 
 
 ---
@@ -678,7 +678,7 @@ ggplot(data = covid,
 ]
 
 .pull-right[
-&lt;img src="index_files/figure-html/unnamed-chunk-16-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-102-1.png" width="288" /&gt;
 ]
 ---
 # Top Tip
@@ -721,7 +721,7 @@ ggplot(data = covid, aes(x = age, y = freq)) +
 * scale_y_continuous(expand = c(0, 0))
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-17-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-103-1.png" width="288" /&gt;
 
 .pull-right[
 .footnote[
@@ -743,7 +743,7 @@ ggplot(data = covid, aes(x = age, y = freq)) +
                      name = "Number of deaths") 
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-18-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-104-1.png" width="288" /&gt;
 
 ---
 
@@ -788,7 +788,7 @@ Summarise
 .pull-right[
 Plot
 
-&lt;img src="index_files/figure-html/unnamed-chunk-20-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-106-1.png" width="288" /&gt;
 ]
 ---
 # Working with Data 
@@ -1010,8 +1010,8 @@ bloods$Healthy
 ```
 
 ```
-##  [1] 2.99 3.15 2.63 4.29 3.65 2.93 5.36 3.97 4.69 3.08 5.13 4.50 3.53 4.11 6.23
-## [16] 4.36 3.75 2.88 2.80 3.85 4.91 5.22 3.79 4.39 4.27 3.01 3.27 3.99 4.23 3.68
+##  [1] 2.99 3.15 2.63 4.29 3.65 2.93 5.36 3.97 4.69 3.08 5.13 4.50 3.53 4.11 6.23 4.36 3.75 2.88
+## [19] 2.80 3.85 4.91 5.22 3.79 4.39 4.27 3.01 3.27 3.99 4.23 3.68
 ```
 ]
 ---
@@ -1318,7 +1318,7 @@ ggplot(data = bloods2, aes(x = glucose)) +
 ```
 .pull-left[
 
-&lt;img src="index_files/figure-html/unnamed-chunk-36-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-122-1.png" width="288" /&gt;
 ]
 
 --
@@ -1343,7 +1343,7 @@ To plot multiple group data in tidy form we map the population variable to the `
   scale_x_continuous(name = "Blood glucose (mmol/l)")
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-37-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-123-1.png" width="288" /&gt;
 .pull-right[
 .footnote[
 &lt;span style=" font-weight: bold;    color: #fdf9f6 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #25496b !important;" &gt;Extra exercise:&lt;/span&gt;  Make the axes cross at (0,0)]
@@ -1368,7 +1368,7 @@ result on next slide.
 # Working with Data 
 The result:
 
-&lt;img src="index_files/figure-html/unnamed-chunk-38-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-124-1.png" width="288" /&gt;
 
 ---
 # Working with Data 
@@ -1382,7 +1382,7 @@ ggplot(data = bloods2, aes(x = glucose, fill = population)) +
   scale_x_continuous(name = "Blood glucose (mmol/l)")
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-39-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-125-1.png" width="288" /&gt;
 
 ---
 # Working with Data 
@@ -1396,7 +1396,7 @@ ggplot(data = bloods2, aes(x = glucose, fill = population)) +
   scale_x_continuous(name = "Blood glucose (mmol/l)")
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-40-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-126-1.png" width="288" /&gt;
 
 ---
 # Working with Data 
@@ -1416,7 +1416,7 @@ ggplot(data = bloods2, aes(x = glucose)) +
 * theme_classic()
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-41-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-127-1.png" width="288" /&gt;
 
 ---
 # Working with Data 
@@ -1424,7 +1424,7 @@ ggplot(data = bloods2, aes(x = glucose)) +
 A different kind of plot:
 
 .pull-left[
-&lt;img src="index_files/figure-html/unnamed-chunk-42-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-128-1.png" width="288" /&gt;
 ]
 
 .pull-right[
@@ -1453,7 +1453,7 @@ ggplot(data = bloods2, aes(x = population, y = glucose, fill = population)) +
 ---
 # Working with Data 
 
-&lt;img src="index_files/figure-html/unnamed-chunk-43-1.png" width="288" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-129-1.png" width="288" /&gt;
 ---
 # Summary
 * Use a script and comment it  
@@ -1468,7 +1468,7 @@ ggplot(data = bloods2, aes(x = population, y = glucose, fill = population)) +
 
 class: inverse
 
-# 🎉 Congratulations! Keep practising! 🎈 
+# 🥳 Congratulations! Keep practising! 🎉 
 
 .footnote[
 Slides made with with xaringan &lt;a name=cite-xaringan&gt;&lt;/a&gt;([Xie, 2019](#bib-xaringan))
@@ -1489,42 +1489,37 @@ Slides made with with xaringan &lt;a name=cite-xaringan&gt;&lt;/a&gt;([Xie, 2019
 ---
 # References
 .font60[
-&lt;a name=bib-Bryan2018-hl&gt;&lt;/a&gt;[Bryan, J.](#cite-Bryan2018-hl) (2018).
-"Excuse Me, Do You Have a Moment to Talk About Version Control?" In:
-_Am. Stat._ 72.1, pp. 20-27.
+&lt;a name=bib-Bryan2018-hl&gt;&lt;/a&gt;[Bryan, J.](#cite-Bryan2018-hl) (2018). "Excuse Me, Do
+You Have a Moment to Talk About Version Control?" In: _Am. Stat._ 72.1, pp. 20-27.
 
-&lt;a name=bib-Codd1990-th&gt;&lt;/a&gt;[Codd, E. F.](#cite-Codd1990-th) (1990).
-_The Relational Model for Database Management: Version 2_. Boston, MA,
-USA: Addison-Wesley Longman Publishing Co, Inc.
+&lt;a name=bib-Codd1990-th&gt;&lt;/a&gt;[Codd, E. F.](#cite-Codd1990-th) (1990). _The Relational
+Model for Database Management: Version 2_. Boston, MA, USA: Addison-Wesley Longman
+Publishing Co, Inc.
 
 &lt;a name=bib-Sandve2013-nd&gt;&lt;/a&gt;[Sandve, G. K, A. Nekrutenko, et
-al.](#cite-Sandve2013-nd) (2013). "Ten simple rules for reproducible
-computational research". En. In: _PLoS Comput. Biol._ 9.10, p.
-e1003285.
+al.](#cite-Sandve2013-nd) (2013). "Ten simple rules for reproducible computational
+research". En. In: _PLoS Comput. Biol._ 9.10, p. e1003285.
 
-&lt;a name=bib-Wickham2014-nl&gt;&lt;/a&gt;[Wickham, H.](#cite-Wickham2014-nl)
-(2014). "Tidy Data". In: _Journal of Statistical Software, Articles_
-59.10, pp. 1-23.
+&lt;a name=bib-Wickham2014-nl&gt;&lt;/a&gt;[Wickham, H.](#cite-Wickham2014-nl) (2014). "Tidy
+Data". In: _Journal of Statistical Software, Articles_ 59.10, pp. 1-23.
 
-&lt;a name=bib-ggplot2&gt;&lt;/a&gt;[Wickham, H.](#cite-ggplot2) (2016). _ggplot2:
-Elegant Graphics for Data Analysis_. Springer-Verlag New York. ISBN:
-978-3-319-24277-4. URL:
+&lt;a name=bib-ggplot2&gt;&lt;/a&gt;[Wickham, H.](#cite-ggplot2) (2016). _ggplot2: Elegant
+Graphics for Data Analysis_. Springer-Verlag New York. ISBN: 978-3-319-24277-4. URL:
 [https://ggplot2.tidyverse.org](https://ggplot2.tidyverse.org).
 
-&lt;a name=bib-Wickham2019-ml&gt;&lt;/a&gt;[Wickham, H, M. Averick, et
-al.](#cite-Wickham2019-ml) (2019). "Welcome to the Tidyverse". In:
-_JOSS_ 4.43, p. 1686.
+&lt;a name=bib-Wickham2019-ml&gt;&lt;/a&gt;[Wickham, H, M. Averick, et al.](#cite-Wickham2019-ml)
+(2019). "Welcome to the Tidyverse". In: _JOSS_ 4.43, p. 1686.
 
-&lt;a name=bib-Wilson2014-ij&gt;&lt;/a&gt;[Wilson, G, D. A. Aruliah, et
-al.](#cite-Wilson2014-ij) (2014). "Best practices for scientific
-computing". En. In: _PLoS Biol._ 12.1, p. e1001745.
+&lt;a name=bib-Wilson2014-ij&gt;&lt;/a&gt;[Wilson, G, D. A. Aruliah, et al.](#cite-Wilson2014-ij)
+(2014). "Best practices for scientific computing". En. In: _PLoS Biol._ 12.1, p.
+e1001745.
 
-&lt;a name=bib-Wilson2017-cp&gt;&lt;/a&gt;[Wilson, G, J. Bryan, et
-al.](#cite-Wilson2017-cp) (2017). "Good enough practices in scientific
-computing". En. In: _PLoS Comput. Biol._ 13.6, p. e1005510.
+&lt;a name=bib-Wilson2017-cp&gt;&lt;/a&gt;[Wilson, G, J. Bryan, et al.](#cite-Wilson2017-cp)
+(2017). "Good enough practices in scientific computing". En. In: _PLoS Comput. Biol._
+13.6, p. e1005510.
 
-&lt;a name=bib-xaringan&gt;&lt;/a&gt;[Xie, Y.](#cite-xaringan) (2019). _xaringan:
-Presentation Ninja_. R package version 0.12. URL:
+&lt;a name=bib-xaringan&gt;&lt;/a&gt;[Xie, Y.](#cite-xaringan) (2019). _xaringan: Presentation
+Ninja_. R package version 0.12. URL:
 [https://CRAN.R-project.org/package=xaringan](https://CRAN.R-project.org/package=xaringan).
 ]
 ---
