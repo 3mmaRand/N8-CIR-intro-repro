@@ -92,7 +92,7 @@ If installing R and RStudio is tricky or impossible with your setup (e.g., if yo
 
 Please cite as:
 
-Emma Rand. (2020, July 16). 3mmaRand/N8-CIR-intro-repro: N8 Centre of Excellence in Computationally Intensive Research (N8 CIR) online training (Version v1.0). Zenodo. http://doi.org/10.5281/zenodo.3948362
+Emma Rand. (2020, July 16). N8-CIR-intro-repro: N8 Centre of Excellence in Computationally Intensive Research (N8 CIR) online training (Version v1.0). Zenodo. http://doi.org/10.5281/zenodo.3948362
 
 You can obtain all the workshop materials by using the green 'Clone or download' button above.
 
