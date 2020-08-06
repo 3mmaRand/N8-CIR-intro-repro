@@ -3,6 +3,7 @@
 # Introduction to Reproducible Analyses in R
 
 An [N8 Centre of Excellence in Computationally Intensive Research (N8 CIR) ](https://n8cir.org.uk/) online training event held 21 July 2020, 1300 - 1500
+This session was recorded and made more watchable through some great editing by Niki Harratt. You can find the recordings here: https://n8cir.org.uk/events/event-resource/analyses-r/
 
 ## Overview
 
